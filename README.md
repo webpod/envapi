@@ -8,7 +8,7 @@ yarn add envapi
 
 ## Usage
 ```ts
-import { parse, stringify } from 'envapi'
+import { parse, stringify, config, load, loadSafe } from 'envapi'
 
 const str = `
 A=A
@@ -28,6 +28,13 @@ const nstr = stringify(env)
 `A=A
 FOO="bar\nbaz"
 X=x`
+
+const raw = 'FOO=BAR\nBAZ=QUX'
+await fs.writeFile('.env', raw)
+const env1 = load('.env')
+
+config('.env')
+process.env.FOO // BAR
 ```
 
 ## License
