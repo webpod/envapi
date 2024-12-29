@@ -6,10 +6,13 @@ export const parse = (content: string): NodeJS.ProcessEnv => {
   let b = ''
   let q = ''
   let i = 0
-  const cap = () => { if (k) {
+  const cap = () => {
+    k = k.trim()
+    if (k) {
       if (!kr.test(k)) throw new Error(`Invalid identifier: ${k}`)
       e[k] = b.trim(); b = k = ''
-  }}
+    }
+  }
 
   for (const c of content.replace(/\r\n?/mg, '\n')) {
     if (i) {
@@ -27,7 +30,7 @@ export const parse = (content: string): NodeJS.ProcessEnv => {
       }
       if (sr.test(c)) {
         if (!k && b === 'export') b = ''
-        if (!k || !b) continue
+        if (!b) continue
       }
       if (c === '=') {
         if (!k) { k = b; b = ''; continue }

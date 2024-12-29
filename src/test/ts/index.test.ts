@@ -55,5 +55,7 @@ JSONSTR='{"foo": "b a r"}'`
 
   it('throws on invalid input', () => {
     assert.throws(() => parse('BRO-KEN=xyz123'))
+    assert.throws(() => parse('BRO KEN=xyz123'))
+    assert.throws(() => parse('1BROKEN=xyz123'))
   })
 })
