@@ -23,6 +23,7 @@
   "scripts": {
     "build": "concurrently 'npm:build:*'",
     "build:js": "node ./src/scripts/build.mjs --entry='./src/main/ts/index.ts'",
+    "build:jsr": "node ./src/scripts/build-jsr.mjs",
     "build:dts": "tsc --emitDeclarationOnly --outDir target/dts",
     "build:docs": "typedoc --options src/main/typedoc",
     "test": "concurrently 'npm:test:*'",

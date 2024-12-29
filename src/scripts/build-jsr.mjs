@@ -4,7 +4,7 @@ const cwd = process.cwd()
 const pkgJson = JSON.parse(fs.readFileSync(path.resolve(cwd, 'package.json'), 'utf-8'))
 
 fs.writeFileSync(path.resolve(cwd, 'jsr.json'), JSON.stringify({
-  name: 'evnapi',
+  name: '@webpod/evnapi',
   version: pkgJson.version,
   exports: {
     '.': './src/main/ts/index.ts'
