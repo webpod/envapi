@@ -5,7 +5,7 @@ const Q1 = '"' // double quote
 const Q2 = "'" // single quote
 const Q3 = '`' // backtick
 
-export const parse = (content: string): NodeJS.ProcessEnv => {
+export const parse = (content: string | Buffer): NodeJS.ProcessEnv => {
   const kr = /^[a-zA-Z_]+\w*$/
   const sr = /\s/
   const e: Record<string, string> = {}
@@ -21,7 +21,7 @@ export const parse = (content: string): NodeJS.ProcessEnv => {
     }
   }
 
-  for (const c of content.replace(/\r\n?/mg, '\n')) {
+  for (const c of content.toString().replace(/\r\n?/mg, '\n')) {
     if (i) {
       if (c === '\n') i = 0
       continue
