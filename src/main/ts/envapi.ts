@@ -1,3 +1,10 @@
+import fs from 'node:fs'
+import path from 'node:path'
+
+const Q1 = '"' // double quote
+const Q2 = "'" // single quote
+const Q3 = '`' // backtick
+
 export const parse = (content: string): NodeJS.ProcessEnv => {
   const kr = /^[a-zA-Z_]+\w*$/
   const sr = /\s/
@@ -37,7 +44,7 @@ export const parse = (content: string): NodeJS.ProcessEnv => {
       }
     }
 
-    if (c === '"' || c === "'" || c === '`') {
+    if (c === Q1 || c === Q2 || c === Q3) {
       if (!q && !b) {
         q = c
         continue
@@ -55,10 +62,6 @@ export const parse = (content: string): NodeJS.ProcessEnv => {
   return e
 }
 
-const Q1 = '"' // double quote
-const Q2 = "'" // single quote
-const Q3 = '`' // backtick
-
 const formatValue = (v: string): string => {
   const q1 = v.includes(Q1)
   const q2 = v.includes(Q2)
@@ -74,4 +77,23 @@ const formatValue = (v: string): string => {
 export const stringify = (env: NodeJS.ProcessEnv): string =>
   Object.entries(env).map(([k, v]) => `${k}=${formatValue(v || '')}`).join('\n')
 
-export default { parse, stringify }
+const _load = (
+  read: (file: string) => string,
+  ...files: string[]
+): NodeJS.ProcessEnv =>
+  files
+    .reverse()
+    .reduce((m, f) => Object.assign(m, parse(read(path.resolve(f)))), {})
+export const load = (...files: string[]): NodeJS.ProcessEnv =>
+  _load((file) => fs.readFileSync(file, 'utf8'), ...files)
+export const loadSafe = (...files: string[]): NodeJS.ProcessEnv =>
+  _load(
+    (file: string): string =>
+      fs.existsSync(file) ? fs.readFileSync(file, 'utf8') : '',
+    ...files
+  )
+
+export const config = (def = '.env', ...files: string[]): NodeJS.ProcessEnv =>
+  Object.assign(process.env, loadSafe(def, ...files))
+
+export default { parse, stringify, load, loadSafe, config }
