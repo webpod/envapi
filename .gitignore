@@ -2,3 +2,4 @@ node_modules/
 target/
 yarn.lock
 temp
+jsr.json
