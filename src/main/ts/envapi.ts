@@ -93,4 +93,3 @@ export const loadSafe = (...files: string[]): NodeJS.ProcessEnv =>
 export const config = (def = '.env', ...files: string[]): NodeJS.ProcessEnv =>
   Object.assign(process.env, loadSafe(def, ...files))
 
-export default { parse, stringify, load, loadSafe, config }
