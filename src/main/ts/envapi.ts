@@ -77,10 +77,7 @@ const formatValue = (v: string): string => {
 export const stringify = (env: NodeJS.ProcessEnv): string =>
   Object.entries(env).map(([k, v]) => `${k}=${formatValue(v || '')}`).join('\n')
 
-const _load = (
-  read: (file: string) => string,
-  ...files: string[]
-): NodeJS.ProcessEnv =>
+const _load = (read: (file: string) => string, ...files: string[]): NodeJS.ProcessEnv =>
   files
     .reverse()
     .reduce((m, f) => Object.assign(m, parse(read(path.resolve(f)))), {})
