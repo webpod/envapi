@@ -1,3 +1,8 @@
+## [0.1.1](https://github.com/webpod/envapi/compare/v0.1.0...v0.1.1) (2024-12-30)
+
+### Fixes & improvements
+* docs: extend usage examples ([d247b1c](https://github.com/webpod/envapi/commit/d247b1c78ec64f88fd8162de27c4c945a84e9b5f))
+
 ## [0.1.0](https://github.com/webpod/envapi/compare/v0.0.1...v0.1.0) (2024-12-30)
 
 ### Features
