@@ -91,6 +91,8 @@ export const loadSafe = (...files: string[]): NodeJS.ProcessEnv =>
     ...files
   )
 
-export const config = (def = DOTENV, ...files: string[]): NodeJS.ProcessEnv =>
-  Object.assign(process.env, loadSafe(def, ...files))
+export const populate = (env: NodeJS.ProcessEnv, extra?: NodeJS.ProcessEnv): NodeJS.ProcessEnv =>
+  Object.assign(env, extra)
 
+export const config = (def = DOTENV, ...files: string[]): NodeJS.ProcessEnv =>
+  populate(process.env, loadSafe(def, ...files))

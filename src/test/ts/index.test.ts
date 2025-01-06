@@ -3,7 +3,7 @@ import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import { describe, test, afterAll } from 'vitest'
-import { parse, stringify, load, loadSafe, config } from '../../main/ts/index.js'
+import { parse, stringify, load, loadSafe, populate, config } from '../../main/ts/index.js'
 
 const randomId= () => Math.random().toString(36).slice(2)
 const tempdir = (prefix: string = `temp-${randomId()}`): string => {
@@ -124,6 +124,12 @@ JSONSTR='{"foo": "b a r"}'`
       config(file1)
       assert.equal(process.env.ENV1, 'value1')
       delete process.env.ENV1
+    })
+  })
+
+  describe('populate()', () => {
+    test('populates env', () => {
+      assert.deepEqual(populate({FOO: 'BAR'}, { FOO: 'BAZ' }), { FOO: 'BAZ' })
     })
   })
 })
