@@ -1,3 +1,8 @@
+## [0.2.0](https://github.com/webpod/envapi/compare/v0.1.1...v0.2.0) (2025-01-06)
+
+### Features
+* feat: expose `populate` API ([b1af279](https://github.com/webpod/envapi/commit/b1af27981d83436a6674b342d94870e2e322e2bb))
+
 ## [0.1.1](https://github.com/webpod/envapi/compare/v0.1.0...v0.1.1) (2024-12-30)
 
 ### Fixes & improvements
