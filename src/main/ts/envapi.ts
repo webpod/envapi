@@ -1,6 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
+const DOTENV = '.env'
 const Q1 = '"' // double quote
 const Q2 = "'" // single quote
 const Q3 = '`' // backtick
@@ -9,10 +10,10 @@ export const parse = (content: string | Buffer): NodeJS.ProcessEnv => {
   const kr = /^[a-zA-Z_]+\w*$/
   const sr = /\s/
   const e: Record<string, string> = {}
-  let k = ''
-  let b = ''
-  let q = ''
-  let i = 0
+  let k = ''  // key
+  let b = ''  // buffer
+  let q = ''  // quote
+  let i = 0   // ignore
   const cap = () => {
     k = k.trim()
     if (k) {
@@ -90,6 +91,6 @@ export const loadSafe = (...files: string[]): NodeJS.ProcessEnv =>
     ...files
   )
 
-export const config = (def = '.env', ...files: string[]): NodeJS.ProcessEnv =>
+export const config = (def = DOTENV, ...files: string[]): NodeJS.ProcessEnv =>
   Object.assign(process.env, loadSafe(def, ...files))
 
