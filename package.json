@@ -32,6 +32,8 @@
     "test:unit": "vitest run --dir src/test/ts --coverage.enabled --coverage.include src/main/ts --coverage.reportsDirectory target/coverage --coverage.thresholds.100",
     "test:jsr": "jsr publish --dry-run",
     "test:audit": "npm audit",
+    "test:smoke:cjs": "node ./src/test/smoke/smoke.cjs",
+    "test:smoke:mjs": "node ./src/test/smoke/smoke.mjs",
     "publish:draft": "npm run build && npm publish --no-git-tag-version"
   },
   "publishConfig": {

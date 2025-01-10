@@ -29,7 +29,7 @@ MULTILINE = """
 long text here, # not-comment
 e.g. a private SSH key
 """
-ENV=v1\nENV2=v2\n\n\n\t\t  ENV3  =    'v"3'   \n   export ENV4="v\`4"
+ENV=v1\nENV2=v2\r\n\n\r\n\t\t  ENV3  =    'v"3'   \n   export ENV4="v\`4"
 ENV5="v'5" # comment
 ENV6=\`v'"6\`
 ENV7=
@@ -70,20 +70,17 @@ JSON='{"foo": "b a r"}'
 JSONSTR='{"foo": "b a r"}'`
 )
   })
-  test("works with buffer with different encoding", () => {
+
+  test('accepts buffer input', () => {
     const str = 'FOO=BAR\r\nBAz=QUZ'
+    const env = {
+      FOO: 'BAR',
+      BAz: 'QUZ',
+    }
 
-    const result = {
-        FOO: 'BAR',
-        BAz: 'QUZ',
-    };
-
-    let env = parse(Buffer.from(str, "utf8"));
-    assert.deepEqual(env, result); 
-    
-    env = parse(Buffer.from(str, "ascii")); 
-    assert.deepEqual(env, result); 
-  });
+    assert.deepEqual(parse(Buffer.from(str, 'utf8')), env)
+    assert.deepEqual(parse(Buffer.from(str, 'ascii')), env)
+  })
 
   test('throws on invalid input', () => {
     assert.throws(() => parse('BRO-KEN=xyz123'))

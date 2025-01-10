@@ -81,7 +81,7 @@ jobs:
     strategy:
       matrix:
         os: [ ubuntu-latest, windows-latest ]
-        node-version: [ 7, 22 ]
+        node-version: [ 8, 22 ]
 
     runs-on: ${{ matrix.os }}
     steps:
@@ -104,5 +104,5 @@ jobs:
 
       - name: Run units
         if: matrix.os != 'ubuntu-latest' && matrix.node-version != 22
-        run: npm run test:unit
+        run: npm run test:smoke:cjs
         timeout-minutes: 1
