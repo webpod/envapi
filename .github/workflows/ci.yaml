@@ -99,7 +99,7 @@ jobs:
       - name: Run all tests
         if: matrix.os == 'ubuntu-latest' && matrix.node-version == 22
         run: |
-          run: npm ci
+          npm ci
           npm run test
         timeout-minutes: 1
 
