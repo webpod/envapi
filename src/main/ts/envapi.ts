@@ -6,11 +6,11 @@ const DOTENV = '.env'
 const Q1 = '"' // double quote
 const Q2 = "'" // single quote
 const Q3 = '`' // backtick
-
+const KR = /^[a-zA-Z_]\w*$/
+const SR = /\s/
 const decoder = new TextDecoder()
+
 export const parse = (content: string | Buffer): NodeJS.ProcessEnv => {
-  const kr = /^[a-zA-Z_]+\w*$/
-  const sr = /\s/
   const e: Record<string, string> = {}
   let k = ''  // key
   let b = ''  // buffer
@@ -19,7 +19,7 @@ export const parse = (content: string | Buffer): NodeJS.ProcessEnv => {
   const cap = () => {
     k = k.trim()
     if (k) {
-      if (!kr.test(k)) throw new Error(`Invalid identifier: ${k}`)
+      if (!KR.test(k)) throw new Error(`Invalid identifier: ${k}`)
       e[k] = b.trim(); b = k = ''
     }
   }
@@ -38,7 +38,7 @@ export const parse = (content: string | Buffer): NodeJS.ProcessEnv => {
         cap()
         continue
       }
-      if (sr.test(c)) {
+      if (SR.test(c)) {
         if (!k && b === 'export') b = ''
         if (!b) continue
       }
@@ -46,7 +46,6 @@ export const parse = (content: string | Buffer): NodeJS.ProcessEnv => {
         if (!k) { k = b; b = ''; continue }
       }
     }
-
     if (c === Q1 || c === Q2 || c === Q3) {
       if (!q && !b) {
         q = c
@@ -69,7 +68,7 @@ const formatValue = (v: string): string => {
   const q1 = v.includes(Q1)
   const q2 = v.includes(Q2)
   const q3 = v.includes(Q3)
-  const s = /\s/.test(v)
+  const s = SR.test(v)
 
   if (!q1 && !q2 && !q3 && !s) return v
   if (!q1) return `${Q1}${v}${Q1}`
