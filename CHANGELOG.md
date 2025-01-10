@@ -1,3 +1,8 @@
+## [0.2.1](https://github.com/webpod/envapi/compare/v0.2.0...v0.2.1) (2025-01-10)
+
+### Fixes & improvements
+* perf: optimize buffer input processing (#4) ([a057e38](https://github.com/webpod/envapi/commit/a057e38e29f40964f8d38689c8298c0ec0319fa9))
+
 ## [0.2.0](https://github.com/webpod/envapi/compare/v0.1.1...v0.2.0) (2025-01-06)
 
 ### Features
