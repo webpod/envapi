@@ -1,11 +1,13 @@
 import fs from 'node:fs'
 import path from 'node:path'
+import { TextDecoder } from 'node:util'
 
 const DOTENV = '.env'
 const Q1 = '"' // double quote
 const Q2 = "'" // single quote
 const Q3 = '`' // backtick
 
+const decoder = new TextDecoder()
 export const parse = (content: string | Buffer): NodeJS.ProcessEnv => {
   const kr = /^[a-zA-Z_]+\w*$/
   const sr = /\s/
@@ -22,7 +24,7 @@ export const parse = (content: string | Buffer): NodeJS.ProcessEnv => {
     }
   }
 
-  for (const c of content.toString().replace(/\r\n?/mg, '\n')) {
+  for (const c of (typeof content === 'string' ? content : decoder.decode(content))) {
     if (i) {
       if (c === '\n') i = 0
       continue

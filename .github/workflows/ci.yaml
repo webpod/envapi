@@ -81,7 +81,7 @@ jobs:
     strategy:
       matrix:
         os: [ ubuntu-latest, windows-latest ]
-        node-version: [ 22 ]
+        node-version: [ 8, 22 ]
 
     runs-on: ${{ matrix.os }}
     steps:
@@ -95,14 +95,15 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: build
-      - name: Fetch deps
-        run: npm ci
+
       - name: Run all tests
         if: matrix.os == 'ubuntu-latest' && matrix.node-version == 22
-        run: npm run test
+        run: |
+          npm ci
+          npm run test
         timeout-minutes: 1
 
       - name: Run units
-        if: matrix.os != 'ubuntu-latest' && matrix.node-version != 22
-        run: npm run test:unit
+        if: matrix.os != 'ubuntu-latest' || matrix.node-version != 22
+        run: npm run test:smoke:cjs
         timeout-minutes: 1
