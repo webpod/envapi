@@ -70,6 +70,20 @@ JSON='{"foo": "b a r"}'
 JSONSTR='{"foo": "b a r"}'`
 )
   })
+  test("works with buffer with different encoding", () => {
+    const str = 'FOO=BAR\r\nBAz=QUZ'
+
+    const result = {
+        FOO: 'BAR',
+        BAz: 'QUZ',
+    };
+
+    let env = parse(Buffer.from(str, "utf8"));
+    assert.deepEqual(env, result); 
+    
+    env = parse(Buffer.from(str, "ascii")); 
+    assert.deepEqual(env, result); 
+  });
 
   test('throws on invalid input', () => {
     assert.throws(() => parse('BRO-KEN=xyz123'))

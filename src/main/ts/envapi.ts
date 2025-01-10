@@ -6,6 +6,14 @@ const Q1 = '"' // double quote
 const Q2 = "'" // single quote
 const Q3 = '`' // backtick
 
+const utf8Decoder = new TextDecoder('utf-8')
+/**
+ * semantic processing of buffer
+ * https://github.com/nodejs/performance/issues/18
+ */
+const bufToString = (content: Buffer | string): string =>
+    typeof content === 'string' ? content : utf8Decoder.decode(content)
+
 export const parse = (content: string | Buffer): NodeJS.ProcessEnv => {
   const kr = /^[a-zA-Z_]+\w*$/
   const sr = /\s/
@@ -22,7 +30,7 @@ export const parse = (content: string | Buffer): NodeJS.ProcessEnv => {
     }
   }
 
-  for (const c of content.toString().replace(/\r\n?/mg, '\n')) {
+  for (const c of bufToString(content).toString().replace(/\r\n?/mg, '\n')) {
     if (i) {
       if (c === '\n') i = 0
       continue
