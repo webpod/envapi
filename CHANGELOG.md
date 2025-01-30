@@ -1,3 +1,8 @@
+## [0.2.2](https://github.com/webpod/envapi/compare/v0.2.1...v0.2.2) (2025-01-30)
+
+### Fixes & improvements
+* perf: tweak up constants ([ea355da](https://github.com/webpod/envapi/commit/ea355da70516fac509510450e6660733f145b242))
+
 ## [0.2.1](https://github.com/webpod/envapi/compare/v0.2.0...v0.2.1) (2025-01-10)
 
 ### Fixes & improvements
