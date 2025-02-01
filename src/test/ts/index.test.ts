@@ -71,6 +71,14 @@ JSONSTR='{"foo": "b a r"}'`
 )
   })
 
+  test('stringify checks invalid (imbalanced quote) values', () => {
+    const V1 = "en_US\"'`\nBASH_ENV=$(id 1>&2)\nx=`"
+    const V2 = 'foo=\'bar\'\nbaz=\\`"qux\\`\"\"'
+
+    assert.throws(() => stringify({ V1 }))
+    assert.throws(() => stringify({ V2 }))
+  })
+
   test('accepts buffer input', () => {
     const str = 'FOO=BAR\r\nBAz=QUZ'
     const env = {

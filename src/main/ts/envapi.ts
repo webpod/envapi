@@ -73,6 +73,7 @@ const formatValue = (v: string): string => {
   if (!q1 && !q2 && !q3 && !s) return v
   if (!q1) return `${Q1}${v}${Q1}`
   if (!q2) return `${Q2}${v}${Q2}`
+  if (parse(`V=${Q3}${v}${Q3}`).V !== v) throw new Error(`Invalid value: ${v}`)
   return `${Q3}${v}${Q3}`
 }
 
