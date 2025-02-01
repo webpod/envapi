@@ -1,3 +1,8 @@
+## [0.2.3](https://github.com/webpod/envapi/compare/v0.2.2...v0.2.3) (2025-02-01)
+
+### Fixes & improvements
+* fix: check input on stringify ([093e4f3](https://github.com/webpod/envapi/commit/093e4f353850e9b005418474683220b983d85dad))
+
 ## [0.2.2](https://github.com/webpod/envapi/compare/v0.2.1...v0.2.2) (2025-01-30)
 
 ### Fixes & improvements
