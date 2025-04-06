@@ -71,6 +71,10 @@ JSONSTR='{"foo": "b a r"}'`
 )
   })
 
+  test('handles weird values', () => {
+    assert.deepEqual(parse('FOO=bar=baz'), { FOO: 'bar=baz' })
+  })
+
   test('stringify checks invalid (imbalanced quote) values', () => {
     const V1 = "en_US\"'`\nBASH_ENV=$(id 1>&2)\nx=`"
     const V2 = 'foo=\'bar\'\nbaz=\\`"qux\\`\"\"'
