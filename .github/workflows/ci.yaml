@@ -7,10 +7,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Use Node.js 22.x
+      - name: Use Node.js 24
         uses: actions/setup-node@v4
         with:
-          node-version: 22.x
+          node-version: 24
           cache: 'npm'
       - run: npm ci
       - run: npm run build
@@ -42,7 +42,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
           cache: 'npm'
       - uses: actions/download-artifact@v4
         with:
@@ -81,7 +81,7 @@ jobs:
     strategy:
       matrix:
         os: [ ubuntu-latest, windows-latest ]
-        node-version: [ 8, 22 ]
+        node-version: [ 8, 24 ]
 
     runs-on: ${{ matrix.os }}
     steps:
@@ -97,13 +97,13 @@ jobs:
           name: build
 
       - name: Run all tests
-        if: matrix.os == 'ubuntu-latest' && matrix.node-version == 22
+        if: matrix.os == 'ubuntu-latest' && matrix.node-version == 24
         run: |
           npm ci
           npm run test
         timeout-minutes: 1
 
       - name: Run units
-        if: matrix.os != 'ubuntu-latest' || matrix.node-version != 22
+        if: matrix.os != 'ubuntu-latest' || matrix.node-version != 24
         run: npm run test:smoke:cjs
         timeout-minutes: 1
